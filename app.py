@@ -330,5 +330,6 @@ def getImages(topic):
 
         if any(lic in license_name for lic in cc0_licenses):
             filtered_results.append(image_info)
-
+    
     return filtered_results
+

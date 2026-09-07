@@ -227,8 +227,8 @@
                 {% else %}
                     <div class="image-grid">
                         {% for image in images %}
-                            <img src="{{ image.url }}" alt="Free CC0 image" style="max-width: 200px; height: auto;" />
-                        {% endfor %}
+                            <img src="{{ image.url }}" alt="Free CC0 image" loading="lazy" style="max-width: 200px; height: auto;" onerror="this.remove()"/>
+                            {% endfor %}
                     </div>
                 {% endif %}
 
