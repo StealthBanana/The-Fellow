@@ -20,7 +20,6 @@ TEACHING_IDEA_FEEDS = {
 MAX_IDEAS_PER_SOURCE = 10
 FEED_TIMEOUT_SECONDS = 12
 
-
 @app.route("/", methods=["GET", "POST"])
 def input():
     if request.method == "POST":

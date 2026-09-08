@@ -7,7 +7,11 @@
         <link rel="stylesheet" href="/static/css/results.css">
     </head>
     <body>
-        <h1>Topic: {{topic}}</h1>
+        <div style="display: flex; align-items: start; justify-content: space-between; margin: 10px;" >
+            <h1>Topic: {{topic}}</h1>
+            <a href="/">Back to Home</a>
+        </div>
+
         <div class="mytabs">
             <input type="radio" id="tab-books" name="mytabs" checked="checked">
             <label for="tab-books">Books</label>
