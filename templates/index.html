@@ -10,15 +10,25 @@
 </head>
 <body>
     <div class="inputInfo">
-        <h1>Welcome to The Fellow</h1>
-        <p>Hello! The text box below is your friend The Fellow.</p>
-        <p>To continue, enter the topic and click submit. The Fellow will provide you with resources that relate to the given topic.</p>
-        <p>These resources can be used to learn more about the chosen topic, to find teaching material for classrooms, or for whatever your heart desires!</p>
+        <h1>Welcome to: The Fellow</h1>
+        <h3>Hello! The text box below is your friend The Fellow.</h3>
         <form action="/" method="POST">
             <input name="inputTopic" spellcheck="true" placeholder="Input your belief here" type="text" maxlength="100">
-            <input name="submitButton" type="submit">       
+            <input name="submitButton" type="submit" value="Get resources!">       
         </form>
-        <p>Note that while this website has a primary design goal of helping teachers and students find resources for class, it can be used by anyone who wants to know more about the world today than they did yesterday!</p>
+    </div>
+
+    <div class="userInfo">
+        <div>Note that while this website has a primary design goal of helping teachers and students find resources for class, it can be used by anyone who wants to know more about the world today than they did yesterday!</div>
+        <div>To continue, enter the topic and click submit. The Fellow will provide you with resources that relate to the given topic.</div>
+        <div>These resources can be used to learn more about the chosen topic, to find teaching material for classrooms, or for whatever your heart desires!</div>
+    </div>
+
+    <div class="random">
+        <p style="font-size: medium; font-weight: bold;">Just browsing? Click here to get a surprise topic!:</p>
+        <form action="/surprise">
+            <input name="submitButton" type="submit" value="Surprise Me!">
+        </form>
     </div>
 
     <div class="loader loader-hidden"></div>

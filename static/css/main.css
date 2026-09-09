@@ -23,3 +23,35 @@ p {
     color: var(--color-text);
     line-height: 1.5;
 }
+
+.inputInfo {
+    margin: 50px;
+    text-align: center;
+}
+
+.userInfo {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 5px;
+}
+
+.userInfo > * {
+    border: 3px solid var(--color-primary);
+    border-radius: 5px;
+    margin: 8px;
+    background-color: var(--color-tertiary);
+    color: var(--color-text);
+    font-size: large;
+    padding: 4px;
+    text-align: center;
+    max-width: 30%;
+
+}
+
+.random {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+

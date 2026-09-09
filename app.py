@@ -18,7 +18,8 @@ TEACHING_IDEA_FEEDS = {
 
 
 MAX_IDEAS_PER_SOURCE = 10
-FEED_TIMEOUT_SECONDS = 12
+# Depending on the API vs time it takes to get information, this may have to be increased or decreased.
+FEED_TIMEOUT_SECONDS = 20
 
 @app.route("/", methods=["GET", "POST"])
 def input():
@@ -71,12 +72,12 @@ def getBooks(topic):
         response.raise_for_status()
         data = response.json()
     except requests.exceptions.Timeout:
-        return "Open Library took too long to respond. Try again later."
+       return "Open Library took too long to respond. Try again later."
     except requests.exceptions.RequestException as e:
         return f"Could not reach Open Library right now ({e})."
     except ValueError:
         return "Open Library returned an unexpected response."
-
+    
     return data["docs"]
 
 
