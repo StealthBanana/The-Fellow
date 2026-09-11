@@ -6,6 +6,8 @@
     <title>The Fellow</title>
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/loader.css">
+    <!-- COnfetti library-->
+    <script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.2.0/dist/confetti.min.js"></script>
     <script src="static/js/app.js" defer></script>
 </head>
 <body>
@@ -26,7 +28,7 @@
 
     <div class="random">
         <p style="font-size: medium; font-weight: bold;">Just browsing? Click here to get a surprise topic!:</p>
-        <form action="/surprise">
+        <form action="/surprise" id="surpriseForm">
             <input name="submitButton" type="submit" value="Surprise Me!">
         </form>
     </div>

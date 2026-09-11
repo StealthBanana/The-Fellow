@@ -36,6 +36,47 @@ def input():
     else:
         return render_template("index.html")
 
+@app.route("/surprise")
+def surprise():
+    topic = ""
+
+    url = "https://en.wikipedia.org/w/api.php"
+
+    params = {
+        "action": "query",
+        "format": "json",
+        "list": "random",
+        "rnnamespace": 0,
+        "rnlimit": 1
+    }
+
+    headers = {
+        "User-Agent": "TheFellow (https://github.com/StealthBanana/The-Fellow)"
+    }
+
+    try:
+        response = requests.get(
+            url=url,
+            params=params,
+            headers=headers,
+            timeout=FEED_TIMEOUT_SECONDS
+        )
+        response.raise_for_status()
+        data = response.json()
+
+    except requests.exceptions.Timeout:
+        topic = "Clocks and their uses"
+        return redirect(url_for("results", topic=topic))
+    except requests.exceptions.RequestException:
+        topic = "Requesting data"
+        return redirect(url_for("results", topic=topic))
+    except ValueError:
+        topic = "The importance of values"
+        return redirect(url_for("results", topic=topic))
+
+    topic = data["query"]["random"][0]["title"]
+
+    return redirect(url_for("results", topic=topic))
 
 @app.route("/results/<topic>")
 def results(topic):
