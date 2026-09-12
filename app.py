@@ -3,6 +3,9 @@ import requests
 from tubescrape import YouTube, YouTubeError, RateLimitError, ProxyBlockedError
 import feedparser
 import re
+import random
+import json
+
 
 app = Flask(__name__)
 
@@ -31,52 +34,24 @@ def input():
         if not topic:
             return redirect("/")
 
-        return redirect(url_for(('results'), topic=topic))
+        return redirect(url_for('results', topic=topic))
 
     else:
         return render_template("index.html")
 
+
 @app.route("/surprise")
 def surprise():
-    topic = ""
+    #Gets random num which is equal to json file
+    surpriseNum = str(random.randint(0, 4))
 
-    url = "https://en.wikipedia.org/w/api.php"
+    with open("surpriseTopics.json", "r") as file:
+        data = json.load(file)
 
-    params = {
-        "action": "query",
-        "format": "json",
-        "list": "random",
-        "rnnamespace": 0,
-        "rnlimit": 1
-    }
+    topic = data[surpriseNum]
 
-    headers = {
-        "User-Agent": "TheFellow (https://github.com/StealthBanana/The-Fellow)"
-    }
+    return redirect(url_for('results', topic=topic))
 
-    try:
-        response = requests.get(
-            url=url,
-            params=params,
-            headers=headers,
-            timeout=FEED_TIMEOUT_SECONDS
-        )
-        response.raise_for_status()
-        data = response.json()
-
-    except requests.exceptions.Timeout:
-        topic = "Clocks and their uses"
-        return redirect(url_for("results", topic=topic))
-    except requests.exceptions.RequestException:
-        topic = "Requesting data"
-        return redirect(url_for("results", topic=topic))
-    except ValueError:
-        topic = "The importance of values"
-        return redirect(url_for("results", topic=topic))
-
-    topic = data["query"]["random"][0]["title"]
-
-    return redirect(url_for("results", topic=topic))
 
 @app.route("/results/<topic>")
 def results(topic):
@@ -102,7 +77,6 @@ def urlify(topic):
     return urlTopic
 
 
-
 def getBooks(topic):
     urlTopic = urlify(topic)
 
@@ -120,7 +94,6 @@ def getBooks(topic):
         return "Open Library returned an unexpected response."
     
     return data["docs"]
-
 
 
 def getPodcasts(topic):
@@ -142,7 +115,6 @@ def getPodcasts(topic):
     return data["results"]
 
 
-
 def getVideos(topic):
     yt = YouTube()
 
@@ -161,7 +133,6 @@ def getVideos(topic):
     yt.close()
     
     return response.videos
-
 
 
 def getResearchPapers(topic):
@@ -208,7 +179,6 @@ def getResearchPapers(topic):
     return papers
 
 
-
 def getWikiArticles(topic):
     url = "https://en.wikipedia.org/w/api.php"
     params = {
@@ -244,12 +214,10 @@ def getWikiArticles(topic):
     return articles
 
 
-
 def stripHtml(rawHtml):
     text = re.sub(r"<[^>]+>", " ", rawHtml)
     text = re.sub(r"\s+", " ", text).strip()
     return text
-
 
 
 def getTeachingIdeas(topic, maxPerSource=MAX_IDEAS_PER_SOURCE):
@@ -305,7 +273,6 @@ def getTeachingIdeas(topic, maxPerSource=MAX_IDEAS_PER_SOURCE):
     return ideasBySource
 
 
-
 def getAudiobooks(topic):
     urlTopic = urlify(topic)
     url = ''.join(["https://itunes.apple.com/search?term=", urlTopic, "&media=audiobook", "&entity=audiobook", "&limit=50"])
@@ -326,7 +293,6 @@ def getAudiobooks(topic):
 
 
     return data["results"]
-
 
 
 def getImages(topic):
