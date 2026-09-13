@@ -1,0 +1,61 @@
+.inputInfo {
+    opacity: 1;
+    display: block;
+    transition: opacity 0.5s;
+}
+
+.input-info-hidden {
+    opacity: 0;
+}
+
+.loader{
+    opacity: 1;
+    visibility: visible;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-background);
+    transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loader-hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.loader::after{
+    content: "";
+    width: 75px;
+    height: 75px;
+    border: 15px solid;
+    border-top-color: var(--color-highlight);
+    border-radius: 50%;
+    animation: loading 1.5s ease infinite;
+}
+
+@keyframes loading {
+    from{
+        transform: rotate(0turn);
+    }
+    to{
+        transform: rotate(1turn);
+    }
+}
+
+#loadInfo {
+    position: absolute;
+    top: 50vh;
+    width: 100vw;
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text);
+    text-align: center;
+}

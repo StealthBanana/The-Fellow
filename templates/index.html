@@ -4,16 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Fellow</title>
-    <link rel="stylesheet" href="/static/main.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/loader.css">
+    <!-- COnfetti library-->
+    <script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.2.0/dist/confetti.min.js"></script>
+    <script src="static/js/app.js" defer></script>
 </head>
 <body>
-    <h1>Welcome to The Fellow</h1>
-    <p>Hello! The text box below is your friend The Fellow. Give him any topic you'd like more resources on!</p>
-    <p>To continue, enter the topic and click submit. The Fellow will provide you with resources that relate to the given topic.</p>
-    <p>These resources can be used to learn more about the chosen topic, to find teaching material for classrooms, or for whatever your heart desires!</p>
-    <form action="\" method="POST">
-        <input name="inputTopic" placeholder="Input your belief here" type="text" maxlength="100">
-        <input name="submit" type="submit">
-    </form>
-    <p>Note that while this website is primarily designed to help teachers, it can be used by anyone who wants to know more about the world today than they did yesterday!</p>
+    <div class="inputInfo">
+        <h1>Welcome to: The Fellow</h1>
+        <h3>Hello! The text box below is your friend The Fellow.</h3>
+        <form action="/" method="POST">
+            <input name="inputTopic" spellcheck="true" placeholder="Input your belief here" type="text" maxlength="100">
+            <input name="submitButton" type="submit" value="Get resources!">       
+        </form>
+    </div>
+
+    <div class="userInfo">
+        <div>Note that while this website has a primary design goal of helping teachers and students find resources for class, it can be used by anyone who wants to know more about the world today than they did yesterday!</div>
+        <div>To continue, enter the topic and click submit. The Fellow will provide you with resources that relate to the given topic.</div>
+        <div>These resources can be used to learn more about the chosen topic, to find teaching material for classrooms, or for whatever your heart desires!</div>
+    </div>
+
+    <div class="random">
+        <p style="font-size: medium; font-weight: bold;">Just browsing? Click here to get a surprise topic!:</p>
+        <form action="/surprise" id="surpriseForm">
+            <input name="submitButton" type="submit" value="Surprise Me!">
+        </form>
+    </div>
+
+    <div class="loader loader-hidden"></div>
+    <div id="loadInfo"></div>
+
 </body>
+</html>

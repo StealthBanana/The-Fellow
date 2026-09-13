@@ -3,29 +3,37 @@
 <html lang="en">
     <head>
         <title>The Fellow</title>
-        <link rel="stylesheet" href="/static/main.css">
-        <link rel="stylesheet" href="/static/results.css">
+        <link rel="stylesheet" href="/static/css/main.css">
+        <link rel="stylesheet" href="/static/css/results.css">
     </head>
     <body>
-        <h1>Topic: {{topic}}</h1>
+        <div style="display: flex; align-items: start; justify-content: space-between; margin: 10px;" >
+            <h1>Topic: {{topic}}</h1>
+            <a href="/">Back to Home</a>
+        </div>
+
         <div class="mytabs">
             <input type="radio" id="tab-books" name="mytabs" checked="checked">
             <label for="tab-books">Books</label>
             <div class="tab">
                 <h2>Books</h2>
-                <ul>
-                    {% for book in books %}
-                        <li>
-                            <strong>{{ book["title"] }}</strong>
-                            {% if book["author_name"] %}
-                                by {{ book["author_name"][0] }}
-                            {% endif %}
-                            {% if book["first_publish_year"] %}
-                                ({{ book["first_publish_year"] }})
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if books is string %}
+                    <p>Error: {{ books }}</p>
+                {% else %}
+                    <ul>
+                        {% for book in books %}
+                            <li>
+                                <strong>{{ book["title"] }}</strong>
+                                {% if book["author_name"] %}
+                                    by {{ book["author_name"][0] }}
+                                {% endif %}
+                                {% if book["first_publish_year"] %}
+                                    ({{ book["first_publish_year"] }})
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
 
             <input type="radio" id="tab-videos" name="mytabs">
@@ -45,7 +53,15 @@
                                 <li>
                                     <a href="{{ video.url }}">{{ video.url }}</a>
                                 </li>
-                                </li>
+                                {% if video.view_count %}
+                                    <b>{{ video.view_count }}</b>
+                                {% endif %}
+                                
+                                <br>
+                                
+                                {% if video.description_snippet %}
+                                    <em>{{ video.description_snippet }}</em>
+                                {% endif %} 
                             </ul>
                         </li>
                         {% endfor %}
@@ -57,38 +73,51 @@
             <label for="tab-podcasts">Podcasts</label>
             <div class="tab">
                 <h2>Podcasts</h2>
-                <ul>
-                    {% for podcast in podcasts %}
-                        <li>
-                            <strong>{{ podcast["trackName"] }} </strong>
-                            {% if podcast["artistName"] %}
-                                by {{ podcast["artistName"] }}
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if podcasts is string %}
+                    <p>Error: {{ podcasts }}</p>
+                {% else %}
+                    <ul>
+                        {% for podcast in podcasts %}
+                            <li>
+                                <a href="{{ podcast['collectionViewUrl'] }}" target="_blank"> <strong>{{ podcast["trackName"] }} </strong> </a>
+                                {% if podcast["artistName"] %}
+                                    by {{ podcast["artistName"] }}
+                                {% endif %}
+                                <br>
+                                {% if podcast["contentAdvisoryRating"] %}
+                                    <b>Advisory Rating: {{ podcast["contentAdvisoryRating"] }}</b>
+                                {% endif %}
+                            </li>
+                            
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
 
             <input type="radio" id="tab-research" name="mytabs">
             <label for="tab-research">Research Papers</label>
             <div class="tab">
                 <h2>Research Papers</h2>
-                <ul>
-                {% for paper in researchPapers %}
-                    <li>
-                        <strong>{{ paper.title }}</strong>
-                        {% if paper.authors %}
-                            by {{ paper.authors | join(", ") }}
-                        {% endif %}
-                        <br>
-                        <em>Published: {{ paper.published }}</em>
-                        <br>
-                        {% if paper.summary %}
-                            <p>{{ paper.summary }}</p>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-                </ul>
+                {% if researchPapers is string %}
+                    <p>Error: {{ researchPapers }}</p>
+                {% else %}
+                    <ul>
+                    {% for paper in researchPapers %}
+                        <li>
+                            <strong>{{ paper.title }}</strong>
+                            {% if paper.authors %}
+                                by {{ paper.authors | join(", ") }}
+                            {% endif %}
+                            <br>
+                            <em>Published: {{ paper.published }}</em>
+                            <br>
+                            {% if paper.summary %}
+                                <p>{{ paper.summary }}</p>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
 
             <input type="radio" id="tab-websites" name="mytabs">
@@ -96,18 +125,119 @@
             <div class="tab">
                 <h2>Wiki Articles</h2>
                 <p>NOTE: Although Wikipedia sometimes carries a certain stigma, its articles are excellent starting points for learning more about a topic. 
-                    The sources listed at the bottom of each page provide reliable ways for more research into a topic,
-                    and many may surprised to learn that Wikipedia is actually relatively safe and trustworthy itself!</ps>
+                    The sources listed at the bottom of each page provide reliable ways for more research into a topic!</ps>
+                {% if wikiArticles is string %}
+                    <p>Error: {{ wikiArticles }}</p>
+                {% else %}
+                    <ul>
+                        {% for article in wikiArticles %}
+                            <li>
+                                <a href="{{ article.link }}" target="_blank">
+                                    <strong>{{ article.title }}</strong>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <input type="radio" id="tab-teachingideas" name="mytabs">
+            <label for="tab-teachingideas">Teaching Ideas</label>
+            <div class="tab">
+                <h2>Teaching Ideas</h2>
+                <p>
+                    NOTE: These are recent posts from teacher blogs, matched to the inputted topic by keyword. 
+                    Results will vary by topic since these are simply general teaching blogs, and many times may not be all too useful. 
+                    Click through to read the full post on the original site.
+                </p>
+
+                {% if teachingIdeas %}
+                    <div class="mytabs">
+                        {% for sourceName, sourceData in teachingIdeas.items() %}
+                            <input type="radio" id="subtab-{{ loop.index }}" name="teachingideastabs" {% if loop.first %}checked="checked"{% endif %}>
+                            <label for="subtab-{{ loop.index }}">{{ sourceName }}</label>
+                            <div class="tab">
+                                <h3>{{ sourceName }}</h3>
+                                {% if sourceData.error %}
+                                    <p>{{ sourceData.error }}</p>
+                                {% elif sourceData.entries|length == 0 %}
+                                    <p>No recent posts from {{ sourceName }} matched this topic yet. Try a broader search term, or check back later.</p>
+                                {% else %}
+                                    <ul>
+                                        {% for idea in sourceData.entries %}
+                                            {% if "Deal of the Day" not in idea.title and "Teacher Author Spotlight" not in idea.title%}
+                                            <li>
+                                                <strong><a href="{{ idea.link }}" target="_blank">{{ idea.title }}</a></strong>
+                                                {% if idea.published %}
+                                                    <br>
+                                                    <em>Published: {{ idea.published }}</em>
+                                                {% endif %}
+                                                {% if idea.summary %}
+                                                    <p>{{ idea.summary }}</p>
+                                                {% endif %}
+                                            </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Teaching ideas are currently unavailable.</p>
+                {% endif %}
+            </div>
+
+            <input type="radio" id="tab-audiobooks" name="mytabs">
+            <label for="tab-audiobooks">Audiobooks</label>
+            <div class="tab">
+            <h2>Audiobooks</h2>
+            {% if audiobooks is string %}
+                <p>Error: {{ audiobooks }}</p>
+            {% else %}
                 <ul>
-                    {% for article in wikiArticles %}
+                    {% for audiobook in audiobooks %}
                         <li>
-                            <a href="{{ article.link }}" target="_blank">
-                                <strong>{{ article.title }}</strong>
-                            </a>
+                            <a href="{{ audiobook['collectionViewUrl']}}" target="_blank"> <strong>{{ audiobook["collectionName"] }} </strong> </a>
+                            {% if audiobook["artistName"] %}
+                                by {{ audiobook["artistName"] }}
+                            {% endif %}
+                            <br>
+                            {% if audiobook["collectionExplicitness"] %}
+                                <b>Advisory Rating: {{ audiobook["collectionExplicitness"] }}</b>
+                            {% endif %}
+                            <br>
+                            {% if audiobook["collectionPrice"] %}
+                                <em>Price: {{ audiobook["collectionPrice"] }}</em>
+                            {% endif %}
+                            <br>
+                            {% if audiobook["description"] %}
+                                <p>{{ audiobook["description"] }}</p>
+                            {% endif %}
                         </li>
+                        
                     {% endfor %}
                 </ul>
+            {% endif %}
             </div>
+
+            <input type="radio" id="tab-images" name="mytabs">
+            <label for="tab-images">Images</label>
+            <div class="tab">
+                <h2>Images</h2>
+                <p>Free images for use in projects, lessons, and more! These images are under cc0 liscense which means no credit is needed.</p>
+                {% if images is string %}
+                    <p>Error: {{ images }}</p>
+                {% else %}
+                    <div class="image-grid">
+                        {% for image in images %}
+                            <img src="{{ image.url }}" alt="Free CC0 image" loading="lazy" style="max-width: 200px; height: auto;" onerror="this.remove()"/>
+                            {% endfor %}
+                    </div>
+                {% endif %}
+
+            </div>
+
 
         </div>
     </body>
