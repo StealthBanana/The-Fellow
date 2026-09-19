@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
             inputInfo.style.display = "none";
 
             loader.classList.remove("loader-hidden");
-            loadInfo.textContent = `Getting resources on: YOU MUST FIX THIS PART BROOOOOOOOOOOOOOOOO`;
+            loadInfo.textContent = `Finding resources on your surprise topic!`;
             loadInfo.style.visibility = "visible";
 
             surpriseForm.submit();

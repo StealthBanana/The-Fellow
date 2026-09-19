@@ -211,7 +211,11 @@ def getWikiArticles(topic):
     # Zips titles and links together using zip. 
     # Remember, zip returns tuples that you can use! 
     articles = [{"title": t, "link": l} for t, l in zip(data[1], data[3])]
-    return articles
+
+    if articles:
+        return articles
+    else:
+        return "No wiki articles this topic, sorry!"
 
 
 def stripHtml(rawHtml):
