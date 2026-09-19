@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="/static/css/results.css">
     </head>
     <body>
-        <div style="display: flex; align-items: start; justify-content: space-between; margin: 10px;" >
+        <div class="results-header">
             <h1>Topic: {{topic}}</h1>
             <a href="/">Back to Home</a>
         </div>
@@ -49,20 +49,15 @@
                             <strong>{{ video.title }}</strong>
                             {% if video.channel %} by {{ video.channel }}{% endif %}
                             {% if video.duration %} — {{ video.duration }}{% endif %}
-                            <ul>
-                                <li>
-                                    <a href="{{ video.url }}">{{ video.url }}</a>
-                                </li>
+                            <div class="video-meta">
+                                <a href="{{ video.url }}">{{ video.url }}</a>
                                 {% if video.view_count %}
                                     <b>{{ video.view_count }}</b>
                                 {% endif %}
-                                
-                                <br>
-                                
                                 {% if video.description_snippet %}
                                     <em>{{ video.description_snippet }}</em>
-                                {% endif %} 
-                            </ul>
+                                {% endif %}
+                            </div>
                         </li>
                         {% endfor %}
                     </ul>
@@ -124,8 +119,8 @@
             <label for="tab-websites">Wiki Articles</label>
             <div class="tab">
                 <h2>Wiki Articles</h2>
-                <p>NOTE: Although Wikipedia sometimes carries a certain stigma, its articles are excellent starting points for learning more about a topic. 
-                    The sources listed at the bottom of each page provide reliable ways for more research into a topic!</ps>
+                <p class="note">NOTE: Although Wikipedia sometimes carries a certain stigma, its articles are excellent starting points for learning more about a topic. 
+                    The sources listed at the bottom of each page provide reliable ways for more research into a topic!</p>
                 {% if wikiArticles is string %}
                     <p>Error: {{ wikiArticles }}</p>
                 {% else %}
@@ -145,7 +140,7 @@
             <label for="tab-teachingideas">Teaching Ideas</label>
             <div class="tab">
                 <h2>Teaching Ideas</h2>
-                <p>
+                <p class="note">
                     NOTE: These are recent posts from teacher blogs, matched to the inputted topic by keyword. 
                     Results will vary by topic since these are simply general teaching blogs, and many times may not be all too useful. 
                     Click through to read the full post on the original site.
@@ -225,13 +220,13 @@
             <label for="tab-images">Images</label>
             <div class="tab">
                 <h2>Images</h2>
-                <p>Free images for use in projects, lessons, and more! These images are under cc0 liscense which means no credit is needed.</p>
+                <p class="note">Free images for use in projects, lessons, and more! These images are under cc0 liscense which means no credit is needed.</p>
                 {% if images is string %}
                     <p>Error: {{ images }}</p>
                 {% else %}
                     <div class="image-grid">
                         {% for image in images %}
-                            <img src="{{ image.url }}" alt="Free CC0 image" loading="lazy" style="max-width: 200px; height: auto;" onerror="this.remove()"/>
+                            <img src="{{ image.url }}" alt="Free CC0 image" loading="lazy" onerror="this.remove()"/>
                             {% endfor %}
                     </div>
                 {% endif %}
