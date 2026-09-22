@@ -1,57 +1,224 @@
-/* Design Tokens */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Inter:wght@400;500;600&display=swap');
+
 :root {
-  --color-primary:    #6B5843;
-  --color-secondary:  #8A7458;
-  --color-tertiary:   #A08C6D;
-  --color-accent:     #C2A878;
-  --color-highlight:  #D9C7A2;
-  --color-surface:    #F4EFE5;
-  --color-background: #E9E2D5;
-  --color-text:       #2D2923;
+    --color-primary:    #6B5843;
+    --color-secondary:  #8A7458;
+    --color-tertiary:   #A08C6D;
+    --color-accent:     #C2A878;
+    --color-highlight:  #D9C7A2;
+    --color-surface:    #F4EFE5;
+    --color-background: #E9E2D5;
+    --color-text:       #2D2923;
+    --color-ink:        #1F1B17;
+    --color-line:       #C9B79A;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Change the font size depending on screen width/height */
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-body);
     background-color: var(--color-background);
-    margin: 0;
-    padding: 20px;
-}
-h1 {
     color: var(--color-text);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
 }
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    margin: 0 0 0.4em;
+}
+
 p {
     color: var(--color-text);
-    line-height: 1.5;
+}
+
+a {
+    color: var(--color-primary);
+}
+
+a:hover {
+    color: var(--color-ink);
 }
 
 .inputInfo {
-    margin: 50px;
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    padding-top: 64px;
     text-align: center;
+}
+
+.inputInfo h1 {
+    font-size: 2.75rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.inputInfo h3 {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.05rem;
+    color: var(--color-primary);
+    margin-bottom: 2.5rem;
+}
+
+
+/* Fancy Form stuff */
+.fancy-form {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.fancy-input {
+    position: relative;
+    display: inline-block;
+}
+
+.fancy-input input {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 14px 18px;
+    width: 320px;
+    max-width: 60vw;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    color: var(--color-ink);
+}
+
+.fancy-input input::placeholder {
+    color: var(--color-tertiary);
+}
+
+.fancy-input .border {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+.fancy-input .border::before,
+.fancy-input .border::after {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+.fancy-input .border::before {
+    right: 0;
+    top: 0;
+    border-top: 2px solid var(--color-ink);
+    border-right: 2px solid var(--color-ink);
+    transition:
+        width 0.3s ease,
+        height 0.3s ease 0.3s;
+}
+
+.fancy-input .border::after {
+    left: 0;
+    bottom: 0;
+    border-bottom: 2px solid var(--color-ink);
+    border-left: 2px solid var(--color-ink);
+    transition:
+        width 0.3s ease,
+        height 0.3s ease 0.3s;
+}
+
+.fancy-input input:focus {
+    outline: none;
+}
+
+.fancy-input input:focus ~ .border::before,
+.fancy-input input:focus ~ .border::after {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+input[type="submit"] {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px 26px;
+    border: 1px solid var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-surface);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+input[type="submit"]:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
 .userInfo {
-    display: flex;
-    justify-content: space-evenly;
-    margin: 5px;
-}
-
-.userInfo > * {
-    border: 3px solid var(--color-primary);
-    border-radius: 5px;
-    margin: 8px;
-    background-color: var(--color-tertiary);
-    color: var(--color-text);
-    font-size: large;
-    padding: 4px;
-    text-align: center;
-    max-width: 30%;
-
-}
-
-.random {
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    border-left: 3px solid var(--color-primary);
+    padding: 4px 0 4px 24px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    gap: 0.9rem;
 }
 
+.userInfo > div {
+    color: var(--color-text);
+    font-size: 1rem;
+    max-width: 60ch;
+}
+
+/* Surprise Button stuff */
+.random {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-line);
+    text-align: center;
+}
+
+.random p {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+}
+
+#surpriseButton {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    margin-bottom: 10vh;
+}
+
+#surpriseButton:hover {
+    background: var(--color-primary);
+    color: var(--color-surface);
+}

@@ -6,17 +6,27 @@
     <title>The Fellow</title>
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/loader.css">
-    <!-- COnfetti library-->
     <script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.2.0/dist/confetti.min.js"></script>
-    <script src="static/js/app.js" defer></script>
+    <script src="/static/js/app.js" defer></script>
 </head>
 <body>
     <div class="inputInfo">
-        <h1>Welcome to: The Fellow</h1>
+        <h1>Welcome to The Fellow</h1>
         <h3>Hello! The text box below is your friend The Fellow.</h3>
-        <form action="/" method="POST">
-            <input name="inputTopic" spellcheck="true" placeholder="Input your belief here" type="text" maxlength="100">
-            <input name="submitButton" type="submit" value="Get resources!">       
+
+        <form action="/" method="POST" class="fancy-form">
+            <div class="fancy-input">
+                <input
+                    name="inputTopic"
+                    spellcheck="true"
+                    placeholder="Input your topic here"
+                    type="text"
+                    maxlength="100"
+                >
+                <span class="border"></span>
+            </div>
+
+            <input name="submitButton" type="submit" value="Get resources!">
         </form>
     </div>
 
@@ -27,9 +37,9 @@
     </div>
 
     <div class="random">
-        <p style="font-size: medium; font-weight: bold;">Just browsing? Click here to get a surprise topic!:</p>
+        <p>Just browsing? Click here to get a surprise topic!:</p>
         <form action="/surprise" id="surpriseForm">
-            <input name="submitButton" type="submit" value="Surprise Me!">
+            <input id="surpriseButton" name="submitButton" type="submit" value="Surprise Me!">
         </form>
     </div>
 

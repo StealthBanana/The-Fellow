@@ -1,46 +1,197 @@
-ul li {
-    margin-bottom: 15px;
+.results-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 20px;
+    border-bottom: 1px solid var(--color-line);
+}
+
+.results-header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.results-header a {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.results-header a:hover {
+    color: var(--color-ink);
+    text-decoration: underline;
 }
 
 .mytabs {
     display: flex;
     flex-wrap: wrap;
-    max-width: 2000px;
-    margin: 25px auto;
-    padding: 15px;
-    border-radius: 10px;
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 0 24px;
 }
-
-.mytabs label:hover {
-    background-color: var(--color-highlight);
-} 
 
 .mytabs input[type="radio"] {
     display: none;
 }
 
 .mytabs label {
-    padding: 25px;
-    background: var(--color-accent);
-    font-weight: bold;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 14px 22px;
+    background: var(--color-background);
+    color: var(--color-primary);
+    border: 1px solid var(--color-line);
+    border-radius: 6px 6px 0 0;
+    margin-right: 4px;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mytabs label:hover {
+    background: var(--color-highlight);
+}
+
+.mytabs input[type='radio']:checked + label {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    border-bottom-color: var(--color-surface);
 }
 
 .mytabs .tab {
     width: 100%;
-    padding: 10px;
+    padding: 32px;
     background: var(--color-surface);
+    border: 1px solid var(--color-line);
     order: 1;
     display: none;
-}
-
-.mytabs .tab h2 {
-    font-size: 3em;
 }
 
 .mytabs input[type='radio']:checked + label + .tab {
     display: block;
 }
 
-.mytabs input[type='radio']:checked + label {
-    background: var(--color-secondary);
+.tab h2 {
+    font-size: 1.9rem;
+    font-weight: 600;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid var(--color-line);
+}
+
+.tab h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.6em;
+}
+
+.tab > p.note {
+    color: var(--color-primary);
+    font-size: 0.92rem;
+    max-width: 68ch;
+    margin-bottom: 1.5em;
+}
+
+.tab ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tab > ul > li,
+.tab .mytabs .tab > ul > li {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--color-line);
+}
+
+.tab > ul > li:last-child {
+    border-bottom: none;
+}
+
+.tab li strong {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--color-ink);
+}
+
+.tab li a {
+    text-decoration: none;
+}
+
+.tab li a:hover strong {
+    text-decoration: underline;
+}
+
+.tab li em {
+    font-style: normal;
+    color: var(--color-primary);
+    font-size: 0.85rem;
+}
+
+.tab li > p {
+    margin: 0.5em 0 0;
+    max-width: 65ch;
+    font-size: 0.95rem;
+}
+
+.tab li b {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+}
+
+.video-meta {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.video-meta a {
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    word-break: break-all;
+}
+
+.tab .mytabs {
+    margin: 24px 0 0;
+    padding: 0;
+}
+
+.tab .mytabs label {
+    font-size: 0.85rem;
+    padding: 10px 16px;
+    background: var(--color-surface);
+    border-color: var(--color-line);
+}
+
+.tab .mytabs input[type="radio"]:checked + label {
+    background: var(--color-background);
+    color: var(--color-ink);
+    border-bottom-color: var(--color-background);
+}
+
+.tab .mytabs .tab {
+    background: var(--color-background);
+    padding: 24px;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.image-grid img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border: 1px solid var(--color-line);
+    display: block;
 }

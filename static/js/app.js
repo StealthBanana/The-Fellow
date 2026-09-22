@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // For loading feature
     const form = document.querySelector("form");
     const loader = document.querySelector(".loader");
+    // Remember, any added content to the index.html needs to be gotten here and then set to display: none for loading screen.
     const inputInfo = document.querySelector(".inputInfo");
+    const random = document.querySelector(".random");
     const loadInfo = document.getElementById("loadInfo");
     const inputTopic = document.getElementsByName('inputTopic')[0];
 
@@ -11,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         inputInfo.addEventListener("transitionend", () => {
             inputInfo.style.display = "none";
+            random.style.display = "none";
 
             loader.classList.remove("loader-hidden");
             loadInfo.textContent = `Getting resources on: ${inputTopic.value}`;
@@ -40,9 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         inputInfo.addEventListener("transitionend", () => {
             inputInfo.style.display = "none";
+            random.style.display = "none";
 
             loader.classList.remove("loader-hidden");
-            loadInfo.textContent = `Getting resources on: YOU MUST FIX THIS PART BROOOOOOOOOOOOOOOOO`;
+            loadInfo.textContent = `Finding resources on your surprise topic!`;
             loadInfo.style.visibility = "visible";
 
             surpriseForm.submit();

@@ -43,7 +43,7 @@ def input():
 @app.route("/surprise")
 def surprise():
     #Gets random num which is equal to json file
-    surpriseNum = str(random.randint(0, 4))
+    surpriseNum = str(random.randint(0, 1999))
 
     with open("surpriseTopics.json", "r") as file:
         data = json.load(file)
@@ -136,6 +136,10 @@ def getVideos(topic):
 
 
 def getResearchPapers(topic):
+
+    if topic == " ":
+        return "No research articles on this topic"
+
     urlTopic = urlify(topic)
 
     url = f"http://export.arxiv.org/api/query?search_query=all:{urlTopic}&start=0&max_results=50"
@@ -162,7 +166,11 @@ def getResearchPapers(topic):
             "authors": [author.name for author in entry.authors],
             "published": entry.published
         })
-# Keeps html clean by only showing at most 3 authors for resaerch papers that may have many more
+
+    if not papers:
+        return "No research articles on this topic"
+
+    # Keeps html cleaner by only showing at most 3 authors for resaerch papers that may have many more
     for paper in papers:
         authorRange = len(paper["authors"])
         tempList = []
@@ -211,7 +219,11 @@ def getWikiArticles(topic):
     # Zips titles and links together using zip. 
     # Remember, zip returns tuples that you can use! 
     articles = [{"title": t, "link": l} for t, l in zip(data[1], data[3])]
-    return articles
+
+    if articles:
+        return articles
+    else:
+        return "No wiki articles this topic, sorry!"
 
 
 def stripHtml(rawHtml):
